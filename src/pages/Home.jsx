@@ -14,7 +14,7 @@ import productData from '../assets/fake-data/products'
 
 import banner from '../assets/images/banner.png'
 
-const Home = () => {
+export default function Home () {
     return (
         <Helmet title="Trang chủ">
             {/* hero slider */}
@@ -110,7 +110,7 @@ const Home = () => {
             {/* banner */}
             <Section>
                 <SectionBody>
-                    <a target="_blank" href="https://www.facebook.com/permalink.php?story_fbid=693509195663729&id=100088773905315&substory_index=693509195663729">
+                    <a target="_blank" href="https://www.facebook.com/permalink.php?story_fbid=693509195663729&id=100088773905315&substory_index=693509195663729" rel="noreferrer">
                         <img src={banner} alt="" />
                     </a>
                 </SectionBody>
@@ -149,4 +149,3 @@ const Home = () => {
     )
 }
 
-export default Home
