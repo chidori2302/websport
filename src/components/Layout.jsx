@@ -1,35 +1,27 @@
 import React from 'react'
 
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
 
-import Header from './Header'
 import Chat from './Chat'
 import Footer from './Footer'
+import Header from './Header'
 import ProductViewModal from './ProductViewModal'
 
-import App from '../routes/App'
 
 const Layout = () => {
     return (
-        <BrowserRouter>
-            <Routes>
 
-                <Route render={props => (
                     <div>
-                        <Header {...props}/>
+                        <Header/>
                         <div className="container">
                             <div className="main">
-                                <App/>
-
+                                <Outlet/>
                             </div>
                         </div>
                         <Chat/>
                         <Footer/>
                         <ProductViewModal/>
                     </div>
-                )}/>
-            </Routes>
-        </BrowserRouter>
     )
 }
 
