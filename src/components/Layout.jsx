@@ -1,11 +1,11 @@
 import React from 'react'
 
 import { Outlet } from 'react-router-dom'
-
 import Chat from './Chat'
 import Footer from './Footer'
 import Header from './Header'
 import ProductViewModal from './ProductViewModal'
+
 
 
 const Layout = () => {

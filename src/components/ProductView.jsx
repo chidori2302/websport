@@ -206,8 +206,8 @@ const ProductView = props => {
     )
 }
 
-// ProductView.propTypes = {
-//     product: PropTypes.object
-// }
+ProductView.propTypes = {
+    product: PropTypes.object
+}
 
 export default ProductView

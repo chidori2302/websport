@@ -9,6 +9,7 @@ import Product from "../pages/Product";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Accessories from "../pages/Accessories";
+import Search from "../pages/Search";
 import Layout from "../components/Layout";
 
 const App = () => {
@@ -22,7 +23,8 @@ const App = () => {
           <Route path="/cart" element={<Cart />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/accessories" component={<Accessories />} />
+          <Route path="/accessories" element={<Accessories />} />
+          <Route path="/search/:keyword" element={<Search />} />
           <Route path="*" element={<NoMatch />} />
         </Route>
       </Routes>

@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { useParams } from 'react-router-dom';
 import Helmet from '../components/Helmet'
 import Section, {SectionBody, SectionTitle} from '../components/Section'
 import Grid from '../components/Grid'
@@ -8,9 +8,10 @@ import ProductView from '../components/ProductView'
 
 import productData from '../assets/fake-data/products'
 
-const Product = props => {
-
-    const product = productData.getProductBySlug(props.match.params.slug)
+const Product = () => {
+    const { slug } = useParams();
+    const product = productData.getProductBySlug(slug)
+    console.log(product);
 
     const relatedProducts = productData.getProducts(8)
 

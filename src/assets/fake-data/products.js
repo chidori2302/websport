@@ -106,6 +106,7 @@ const products = [
 ]
 
 const getAllProducts = () => products
+const getAllProductsByTitle = (keyword) => products.filter(e => e.title == keyword)
 
 const getProducts = (count) => {
     const max = products.length - count
@@ -137,7 +138,8 @@ const productData = {
     getAllProducts,
     getProducts,
     getProductBySlug,
-    getCartItemsInfo
+    getCartItemsInfo,
+    getAllProductsByTitle
 }
 
 export default productData

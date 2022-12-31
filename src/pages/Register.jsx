@@ -7,7 +7,9 @@ const Register = (props) => {
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
     const [name, setName] = useState('');
-
+    function checkPass(repass) {
+        (repass==pass)?console.log(`đúng pass`):console.log(`sai pass`);
+    }
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(email);
@@ -26,9 +28,11 @@ const Register = (props) => {
                             <input className="login-input"  value={name} name="name" onChange={(e) => setName(e.target.value)} id="name" placeholder="Nguyễn Văn A" />
                             <label className="login-label"  htmlFor="email">Email</label>
                             <input className="login-input"  value={email} onChange={(e) => setEmail(e.target.value)}type="email" placeholder="youremail@gmail.com" id="email" name="email" />
-                            <label className="login-label"  htmlFor="password">Password</label>
+                            <label className="login-label"  htmlFor="password">Mật khẩu</label>
                             <input className="login-input"  value={pass} onChange={(e) => setPass(e.target.value)} type="password" placeholder="********" id="password" name="password" />
-                            <button className="login-btn"  type="submit">Đăng ký</button>
+                            <label className="login-label"  htmlFor="password">Nhập lại mật khẩu</label>
+                            <input className="login-input"  onBlur={(e) => checkPass(e.target.value)} type="password" placeholder="********" id="repassword" name="repassword" />
+                            <button className="login-btn" type="submit">Đăng ký</button>
                         </form>
                     </div>
                 </SectionBody>

@@ -1,8 +1,6 @@
-import React, { useRef, useEffect } from 'react'
-import { Link, useLocation } from 'react-router-dom'
-
+import React, {useState, useRef, useEffect } from 'react'
+import { Link, useLocation, useNavigate   } from 'react-router-dom'
 import logo from '../assets/images/Logo-2.png'
-
 const mainNav = [
     {
         display: "Trang chủ",
@@ -23,10 +21,10 @@ const mainNav = [
 ]
 
 const Header = () => {
-
+    const [isOpen, setIsOpen] = useState(true);
     const { pathname } = useLocation()
     const activeNav = mainNav.findIndex(e => e.path === pathname)
-
+    const [toggle, setToggle] = useState(false)
     const headerRef = useRef(null)
 
     useEffect(() => {
@@ -42,10 +40,17 @@ const Header = () => {
         };
     }, []);
 
+    const navigate = useNavigate();
+    const handleKeyPress = (e)=>{
+        if (e.which==13) {
+            navigate(`/search/${e.target.value}`)
+            console.log(e.target.value);
+        }
+    }
     const menuLeft = useRef(null)
 
     const menuToggle = () => menuLeft.current.classList.toggle('active')
-
+    // const {isShowing, toggleSearch} = useModal()
     return (
         <div className="header" ref={headerRef}>
             <div className="container">
@@ -76,8 +81,12 @@ const Header = () => {
                             ))
                         }
                     </div>
+                    
                     <div className="header__menu__right">
-                        <div className="header__menu__item header__menu__right__item">
+                        <div className="header__menu__item header__menu__right__item search">
+                            <input  type="text"
+                                onKeyPress={(e)=>handleKeyPress(e)}
+                            />
                             <i className="bx bx-search"></i>
                         </div>
                         <div className="header__menu__item header__menu__right__item">
@@ -86,9 +95,28 @@ const Header = () => {
                             </Link>
                         </div>
                         <div className="header__menu__item header__menu__right__item">
-                            <Link to="/login">
-                                <i className="bx bx-user"></i>
-                            </Link>
+                            
+                           <i 
+                                 onClick={() => setToggle(!toggle)}
+                                 onBlur={() => setToggle(!toggle)}
+                                className="bx bx-user dropdown-toggle" data-toggle="dropdown">
+                            </i>
+                            {toggle && (
+                                <ul class="dropdown-menu">
+                                    <Link to="/login">
+                                        <li class="dropdown-item">Đăng nhập</li>
+                                    </Link>
+                                    <Link to="/register">
+                                        <li class="dropdown-item">Đăng ký</li>
+                                    </Link>
+                                    <Link to="/register">
+                                        <li class="dropdown-item">Chỉnh sửa thông tin</li>
+                                    </Link>
+                                    <Link to="/login">
+                                        <li class="dropdown-item">Đăng xuất</li>
+                                    </Link>
+                                </ul>
+                            )}
                         </div>
                     </div>
                 </div>

@@ -1,24 +1,25 @@
 import React, { useCallback, useState, useEffect, useRef } from 'react'
+import { useParams } from 'react-router-dom';
 
 import Helmet from '../components/Helmet'
 import CheckBox from '../components/CheckBox'
 import price from '../assets/fake-data/product-price'
 
-import productData from '../assets/fake-data/tool'
+import productData from '../assets/fake-data/products'
 import category from '../assets/fake-data/category'
 import colors from '../assets/fake-data/product-color'
 import Button from '../components/Button'
 import InfinityList from '../components/InfinityList'
 
-const Accessories = () => {
-
+const Search = () => {
+    const { keyword } = useParams();
     const initFilter = {
         category: [],
         color: [],
         price: null
     }
 
-    const productList = productData.getAllProducts()
+    const productList = productData.getAllProductsByTitle(keyword)
 
     const [products, setProducts] = useState(productList)
 
@@ -186,4 +187,4 @@ const Accessories = () => {
     )
 }
 
-export default Accessories
+export default Search

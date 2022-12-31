@@ -20,7 +20,26 @@
     .container {
         height: 100%;
     }
-
+    .search{
+        
+        padding: 1rem;
+        border: 2px solid rgb(33, 37, 41);
+        border-radius: 20px;
+        background-color: $main-bg;
+        font-size: 1.5rem;
+        // top: ;
+        z-index: 100;
+        width: 100%;
+        height: 3rem;
+        background-color: $main-bg;
+        box-shadow: $box-shadow;
+        input{
+            border: none;
+        }
+        input:focus{
+            outline: none;
+        }
+    }
     &.shrink {
         height: $header-shrink-height;
         box-shadow: $box-shadow;
@@ -135,4 +154,23 @@
             }
         }
     }
+}
+.header li:hover{
+    background: $main-color;;
+    color: white;
+}
+.header ul{background-color: white;
+    position: absolute;
+    width: 200px;
+    font-size: 1.5rem;
+    border: 1px solid rgb(33, 37, 41);
+    text-align: center;
+    padding: 0;
+}
+.header li{
+    // border: 0.5px solid rgb(218, 218, 218);
+    padding: 0.5rem;
+}
+.header i{
+    cursor: pointer;
 }
