@@ -28,7 +28,7 @@
         background-color: $main-bg;
         font-size: 1.5rem;
         // top: ;
-        z-index: 100;
+        z-index: 99;
         width: 100%;
         height: 3rem;
         background-color: $main-bg;
@@ -43,7 +43,7 @@
     &.shrink {
         height: $header-shrink-height;
         box-shadow: $box-shadow;
-        z-index: 100;
+        // z-index: 100;
 
         @include mobile {
             height: $header-mobile-height;
@@ -128,6 +128,8 @@
                 transition: transform 0.5s ease;
 
                 &.active {
+                    z-index: 100;
+
                     transform: translateX(0);
                 }
 
