@@ -1,8 +1,8 @@
 .section {
-    margin-bottom: 80px;
+    margin-bottom: 50px;
 
     & > * ~ * {
-        margin-top: 70px;
+        margin-top: 40px;
     }
 
     &__title {

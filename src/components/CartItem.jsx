@@ -14,25 +14,21 @@ const CartItem = props => {
     const itemRef = useRef(null)
 
     const [item, setItem] = useState(props.item)
-    const [quantity, setQuantity] = useState(props.item.quantity)
+    const [number, setNumber] = useState(props.item.number)
 
     useEffect(() => {
         setItem(props.item)
-        setQuantity(props.item.quantity)
+        setNumber(props.item.number)
     }, [props.item])
 
-    const updateQuantity = (opt) => {
+    const updateNumber = (opt) => {
         if (opt === '+') {
-            dispatch(updateItem({...item, quantity: quantity + 1}))
+            dispatch(updateItem({...item, number: number + 1}))
         }
         if (opt === '-') {
-            dispatch(updateItem({...item, quantity: quantity - 1 === 0 ? 1 : quantity - 1}))
+            dispatch(updateItem({...item, number: number - 1 === 0 ? 1 : number - 1}))
         }
     }
-
-    // const updateCartItem = () => {
-    //     dispatch(updateItem({...item, quantity: quantity}))
-    // }
 
     const removeCartItem = () => {
         console.log('removeCartItem')
@@ -55,13 +51,13 @@ const CartItem = props => {
                 </div>
                 <div className="cart__item__info__quantity">
                     <div className="product__info__item__quantity">
-                        <div className="product__info__item__quantity__btn" onClick={() => updateQuantity('-')}>
+                        <div className="product__info__item__quantity__btn" onClick={() => updateNumber('-')}>
                             <i className="bx bx-minus"></i>
                         </div>
                         <div className="product__info__item__quantity__input">
-                            {quantity}
+                            {number}
                         </div>
-                        <div className="product__info__item__quantity__btn" onClick={() => updateQuantity('+')}>
+                        <div className="product__info__item__quantity__btn" onClick={() => updateNumber('+')}>
                             <i className="bx bx-plus"></i>
                         </div>
                     </div>

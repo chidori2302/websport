@@ -102,18 +102,18 @@ const Header = () => {
                                 className="bx bx-user dropdown-toggle" data-toggle="dropdown">
                             </i>
                             {toggle && (
-                                <ul class="dropdown-menu">
+                                <ul className="dropdown-menu ">
                                     <Link to="/login">
-                                        <li class="dropdown-item">Đăng nhập</li>
+                                        <li className="dropdown-item">Đăng nhập</li>
                                     </Link>
                                     <Link to="/register">
-                                        <li class="dropdown-item">Đăng ký</li>
+                                        <li className="dropdown-item">Đăng ký</li>
                                     </Link>
-                                    <Link to="/register">
-                                        <li class="dropdown-item">Chỉnh sửa thông tin</li>
+                                    <Link to="/changeinfo">
+                                        <li className="dropdown-item">Đổi mật khẩu</li>
                                     </Link>
                                     <Link to="/login">
-                                        <li class="dropdown-item">Đăng xuất</li>
+                                        <li className="dropdown-item">Đăng xuất</li>
                                     </Link>
                                 </ul>
                             )}

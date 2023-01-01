@@ -11,7 +11,7 @@ import productData from '../assets/fake-data/products'
 const Product = () => {
     const { slug } = useParams();
     const product = productData.getProductBySlug(slug)
-    console.log(product);
+    // console.log(product);
 
     const relatedProducts = productData.getProducts(8)
 
@@ -46,6 +46,7 @@ const Product = () => {
                                     name={item.title}
                                     price={Number(item.price)}
                                     slug={item.slug}
+                                    quantity={item.quantity}
                                 />   
                             ))
                         }

@@ -21,7 +21,7 @@ export const cartItemsSlice = createSlice({
                     color: newItem.color,
                     size: newItem.size,
                     price: newItem.price,
-                    quantity: newItem.quantity + duplicate[0].quantity
+                    number: newItem.number + duplicate[0].number
                 }]
             } else {
                 state.value = [...state.value, {
@@ -42,7 +42,7 @@ export const cartItemsSlice = createSlice({
                     color: newItem.color,
                     size: newItem.size,
                     price: newItem.price,
-                    quantity: newItem.quantity
+                    number: newItem.number
                 }]
             }
             localStorage.setItem('cartItems', JSON.stringify(state.value.sort((a, b) => a.id > b.id ? 1 : (a.id < b.id ? -1 : 0))))

@@ -16,7 +16,7 @@ const ProductView = props => {
     const dispatch = useDispatch()
 
     let product = props.product
-
+    console.log(product);
     if (product === undefined) product = {
         title: "",
         price: '',
@@ -37,19 +37,19 @@ const ProductView = props => {
 
     const [size, setSize] = useState(undefined)
 
-    const [quantity, setQuantity] = useState(1)
+    const [number, setNumber] = useState(1)
 
-    const updateQuantity = (type) => {
+    const updateNumber = (type) => {
         if (type === 'plus') {
-            setQuantity(quantity + 1)
+            setNumber(number + 1)
         } else {
-            setQuantity(quantity - 1 < 1 ? 1 : quantity - 1)
+            setNumber(number - 1 < 1 ? 1 : number - 1)
         }
     }
 
     useEffect(() => {
         setPreviewImg(product.image01)
-        setQuantity(1)
+        setNumber(1)
         setColor(undefined)
         setSize(undefined)
     }, [product])
@@ -64,7 +64,10 @@ const ProductView = props => {
             alert('Vui lòng chọn kích cỡ!')
             return false
         }
-
+        if (number > product.quantity) {
+            alert('Kho không đủ hàng!')
+            return false
+        }
         return true
     }
 
@@ -75,7 +78,7 @@ const ProductView = props => {
                 color: color,
                 size: size,
                 price: product.price,
-                quantity: quantity
+                number: number
             }
             if (dispatch(addItem(newItem))) {
                 alert('Success')
@@ -92,7 +95,7 @@ const ProductView = props => {
                 color: color,
                 size: size,
                 price: product.price,
-                quantity: quantity
+                number: number
             }
             if (dispatch(addItem(newItem))) {
                 dispatch(remove())
@@ -173,13 +176,13 @@ const ProductView = props => {
                         Số lượng
                     </div>
                     <div className="product__info__item__quantity">
-                        <div className="product__info__item__quantity__btn" onClick={() => updateQuantity('minus')}>
+                        <div className="product__info__item__quantity__btn" onClick={() => updateNumber('minus')}>
                             <i className="bx bx-minus"></i>
                         </div>
                         <div className="product__info__item__quantity__input">
-                            {quantity}
+                            {number}
                         </div>
-                        <div className="product__info__item__quantity__btn" onClick={() => updateQuantity('plus')}>
+                        <div className="product__info__item__quantity__btn" onClick={() => updateNumber('plus')}>
                             <i className="bx bx-plus"></i>
                         </div>
                     </div>
