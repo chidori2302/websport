@@ -1,0 +1,33 @@
+.userInput{
+	display:block;
+	justify-content: center;
+    text-align: center;
+    margin: 10px auto;
+    input{
+        display: block;
+        margin: 10px auto;
+        height: 50px;
+        width: 260px;
+        border: none;
+        border-radius: 5px;
+        text-align: center;
+        font-family: arimo;
+        font-size: 1.5rem;
+        background: #eef2f3;
+        font-family: "Roboto", sans-serif;
+    }
+    button{
+        margin: 10px;
+        
+    }
+    .buttonColor{
+        color: $txt-second-color;
+    }
+}
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                appearance: none;
+                margin: 0; 
+}

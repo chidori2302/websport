@@ -24,10 +24,6 @@ const ChangeInfo = (props) => {
                 <SectionBody>
                     <div className="auth-form-container">
                         <form className="register-form" onSubmit={handleSubmit}>
-                            {/* <label className="login-label"  htmlFor="name">Họ và tên</label>
-                            <input className="login-input"  value={name} name="name" onChange={(e) => setName(e.target.value)} id="name" placeholder="Nguyễn Văn A" />
-                            <label className="login-label"  htmlFor="email">Email</label>
-                            <input className="login-input" disabled value={email} onChange={(e) => setEmail(e.target.value)}type="email" placeholder="youremail@gmail.com" id="email" name="email" /> */}
                             <label className="login-label"  htmlFor="password">Mật khẩu cũ</label>
                             <input className="login-input"  value={pass} onChange={(e) => setPass(e.target.value)} type="password" placeholder="********" id="password" name="password" />
                             <label className="login-label"  htmlFor="password">Mật khẩu mới</label>

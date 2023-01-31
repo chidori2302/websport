@@ -40,6 +40,11 @@ const Header = () => {
         };
     }, []);
 
+    const checkLogin=localStorage.getItem(`accessToken`)!==null
+    const checkAdmin=localStorage.getItem(`isAdmin`)== `true`
+    const handleLogout = ()=>{
+        localStorage.removeItem('accessToken');
+    }
     const navigate = useNavigate();
     const handleKeyPress = (e)=>{
         if (e.which==13) {
@@ -104,16 +109,19 @@ const Header = () => {
                             {toggle && (
                                 <ul className="dropdown-menu ">
                                     <Link to="/login">
-                                        <li className="dropdown-item">Đăng nhập</li>
+                                        <li className={checkLogin?"dropdown-item d-none":"dropdown-item"}>Đăng nhập</li>
                                     </Link>
                                     <Link to="/register">
-                                        <li className="dropdown-item">Đăng ký</li>
+                                        <li className={checkLogin?"dropdown-item d-none":"dropdown-item"}>Đăng ký</li>
                                     </Link>
                                     <Link to="/changeinfo">
-                                        <li className="dropdown-item">Đổi mật khẩu</li>
+                                        <li className={checkLogin?"dropdown-item":"dropdown-item d-none"}>Đổi mật khẩu</li>
                                     </Link>
                                     <Link to="/login">
-                                        <li className="dropdown-item">Đăng xuất</li>
+                                        <li className="dropdown-item" onClick={handleLogout}>Đăng xuất</li>
+                                    </Link>
+                                    <Link to="/control">
+                                        <li className={checkAdmin?"dropdown-item":"dropdown-item d-none"}>Quản lý cửa hàng</li>
                                     </Link>
                                 </ul>
                             )}

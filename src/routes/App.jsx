@@ -11,6 +11,7 @@ import Register from "../pages/Register";
 import Accessories from "../pages/Accessories";
 import Search from "../pages/Search";
 import Layout from "../components/Layout";
+import CheckOTP from "../pages/CheckOTP";
 import ChangeInfo from "../pages/ChangeInfo";
 
 const App = () => {
@@ -27,6 +28,7 @@ const App = () => {
           <Route path="/accessories" element={<Accessories />} />
           <Route path="/search/:keyword" element={<Search />} />
           <Route path="/changeinfo" element={<ChangeInfo />} />
+          <Route path="/checkotp/:keyword" element={<CheckOTP />} />
           <Route path="*" element={<NoMatch />} />
         </Route>
       </Routes>

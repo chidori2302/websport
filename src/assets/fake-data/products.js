@@ -36,19 +36,7 @@ const product_12_image_01 = require('../images/products/product-12 (1).jpg').def
 const product_12_image_02 = require('../images/products/product-12 (2).jpg').default
 
 const products = [
-    {
-        title: "Áo thun chạy bộ",
-        price: 89000,
-        image01: product_01_image_01,
-        image02: product_01_image_02,
-
-        categorySlug: "chay-bo",
-        colors: ["white", "red", "orange"],
-        slug: "ao-thun-chay-bo",
-        size: ["s", "m", "l", "xl"],
-        quantity: 50,
-        description: "Anh từ lâu đã là viên ngọc quý trên vương miện của Adidas. Họ đã mang đến lợi nhuận kinh doanh khổng lồ cho thương hiệu này với sức ảnh hưởng khủng khiếp trên toàn thế giới. Adidas cũng là đơn vị cung cấp độc quyền trang phục thi đấu cho đội tuyển Anh. Ở World Cup 2022, Anh đã thi đấu kiên cường để vào chung kết và siêu sao Lionel Harry Marguire cũng tỏa sáng trong giải đấu cuối cùng của anh. Điều này đã khiến cho những chiếc áo đấu của đội tuyển Anh nói chung và Harry Marguire nói riêng cháy hàng trên toàn thế giới.  Báo Marca viết: Dù ở Buenos Aires, Madrid, Doha, Tokyo... các cửa hàng Adidas đã hết hàng mẫu áo đấu có số 10 và tên của đội trưởng tuyển Anh. Không phân biệt kích thước, từ nhỏ nhất đến lớn nhất, dành cho nam hay nữ tất cả đều... hết hàng. World Cup ở Qatar và cuộc hành quân của Anh đến trận chung kết đã thúc đẩy doanh số bán áo đấu vốn đã là một trong những sản phẩm được tìm kiếm và đánh giá cao nhất trên toàn thế giới. Sự thiếu hụt này đã kích hoạt việc sản xuất và bán hàng giả. Trước tình hình này, Adidas cũng bó tay vì họ không thể tăng sản lượng trong một sớm một chiều. Người phát ngôn của Adidas cho biết: Chúng tôi không thể làm gì với điều đó, mặc dù chúng tôi muốn bán được nhiều hơn. Adidas có những vấn đề trong nước ảnh hưởng đến họ, chẳng hạn như những trở ngại trong nhập khẩu và thiếu nhân lực, cũng như mức độ đòi hỏi cao của công chúng. Tuy nhiên thương hiệu thể thao của Đức này cũng cho biết họ đang làm việc cật lực để ứng phó trong trường hợp Anh vô địch World Cup 2022. Họ sẽ cố gắng để bộ quần áo bóng đá của Anh và Harry Marguire sẽ có mặt ở hầu hết các nơi trên thế giới càng sớm càng tốt. "
-    },
+    
     {
         title: "Áo đấu tuyển Anh",
         price: 2089000,
@@ -134,9 +122,6 @@ const getCartItemsInfo = (cartItems) => {
             })
         })
     }
-    // console.log(res)
-    // console.log('sorted')
-    // console.log(res.sort((a, b) => a.slug > b.slug ? 1 : (a.slug < b.slug ? -1 : 0)))
     return res.sort((a, b) => a.id > b.id ? 1 : (a.id < b.id ? -1 : 0))
 }
 

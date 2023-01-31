@@ -16,7 +16,7 @@ const ProductView = props => {
     const dispatch = useDispatch()
 
     let product = props.product
-    console.log(product);
+    // console.log(product);
     if (product === undefined) product = {
         title: "",
         price: '',

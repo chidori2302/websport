@@ -17,9 +17,9 @@ const ProductViewModal = () => {
 
     const [product, setProduct] = useState(undefined)
 
-    useEffect(() => {
-        setProduct(productData.getProductBySlug(productSlug))
-    }, [productSlug]);
+    // useEffect(() => {
+    //     setProduct(productData.getProductBySlug(productSlug))
+    // }, [productSlug]);
 
     return (
         <div className={`product-view__modal ${product === undefined ? '' : 'active'}`}>
