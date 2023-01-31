@@ -14,12 +14,10 @@ import numberWithCommas from '../utils/numberWithCommas'
 const ProductCard = props => {
 
     const dispatch = useDispatch()
-    console.log(props)
     return (
         <div className="product-card">
             <Link to={`/catalog/${props.slug}`}>
                 <div className="product-card__image">
-                {/* props.image.forEach(e=) */}
                     <img src={props.image[0]} alt="" />
                     <img src={props.image[1]} alt="" />
                 </div>

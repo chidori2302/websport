@@ -41,8 +41,7 @@ const Product = () => {
                             relatedProducts.map((item, index) => (
                                 <ProductCard
                                     key={index}
-                                    img01={item.image01}
-                                    img02={item.image02}
+                                    image = {item.image}
                                     name={item.title}
                                     price={Number(item.price)}
                                     slug={item.slug}

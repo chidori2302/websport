@@ -14,7 +14,7 @@ import apiUrl from "../assets/fake-data/api"
 
 const Catalog =  () => {
     let productList = productData.getAllProducts()
-    const api = apiUrl.getAPI(`get-all-products`).api
+    const api = apiUrl.getAPI(`get-general-products`).api +`trang-phuc`
     
     const filterData = (result)=>{
         result.forEach((currentValue, index, arr)=>{
@@ -103,54 +103,6 @@ const Catalog =  () => {
     }
 
     const clearFilter = () => setFilter(initFilter)
-
-    // const updateProducts = useCallback(
-    //     () => {
-    //         let temp = productList
-
-    //         if (filter.category.length > 0) {
-    //             temp = temp.filter(e => filter.category.includes(e.categorySlug))
-    //         }
-
-    //         if (filter.color.length > 0) {
-    //             temp = temp.filter(e => {
-    //                 const check = e.colors.find(color => filter.color.includes(color))
-    //                 return check !== undefined
-    //             })
-    //         }
-            
-    //         if (filter.size.length > 0) {
-    //             temp = temp.filter(e => {
-    //                 const check = e.size.find(size => filter.size.includes(size))
-    //                 console.log(check);
-    //                 return check !== undefined
-    //             })
-    //         }
-
-    //         if (filter.price !== null & filter.price < 1000000) {
-    //             temp = temp.filter(e => {
-    //                 const check = (e.price < filter.price)?e.price:undefined
-    //                 console.log(check);
-    //                 return check !== undefined
-    //             })
-    //         }
-
-    //         if (filter.price > 1000000) {
-    //             temp = temp.filter(e => {
-    //                 const check = (e.price > filter.price)?e.price:undefined
-    //                 console.log(check);
-    //                 return check !== undefined
-    //             })
-    //         }
-           
-    //         setProducts(temp)
-    //     },
-    //     [filter, productList],
-    // )
-
-    // useEffect(() => {
-    //     updateProducts()
-    // }, [updateProducts])
 
     const filterRef = useRef(null)
 
