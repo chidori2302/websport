@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from 'react-router-dom'
+import { Link,  useNavigate} from 'react-router-dom'
 import Helmet from '../components/Helmet'
 import Section, { SectionTitle, SectionBody } from '../components/Section'
 import apiUrl from "../assets/fake-data/api";
+import axios from 'axios';
 
 const Login = () => {
     const navigate = useNavigate();
@@ -12,32 +13,29 @@ const Login = () => {
     const [pass, setPass] = useState('')
     const handleSubmit = () => {
         var myHeaders = new Headers();
-        myHeaders.append("token", "acss");
+        // myHeaders.append("token", "acss");
         myHeaders.append("Content-Type", "application/json");
         
         var raw = JSON.stringify({
             "username": email,
             "password": pass
         });
-        // console.log(raw);
-        
-        // var requestOptions = {
-        //     method: 'POST',
-        //     headers: myHeaders,
-        //     body: raw,
-        //     redirect: 'follow',
-        //     mode:'no-cors'
-        // };
 
         var requestOptions = {
             method: 'POST',
             headers: myHeaders,
             body: raw,
+            mode: 'cors',
             redirect: 'follow'
           };
         
         fetch(api, requestOptions)
-        
+        // axios
+        // .post(api, formData, {
+        //     headers: {
+        //     "Content-Type": "multipart/form-data",
+        //     },
+        // })
         .then(response => {
             console.log(response)
             if (response.ok) {

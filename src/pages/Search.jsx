@@ -1,25 +1,66 @@
 import React, { useCallback, useState, useEffect, useRef } from 'react'
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 
 import Helmet from '../components/Helmet'
 import CheckBox from '../components/CheckBox'
 import price from '../assets/fake-data/product-price'
+import axios from 'axios';
 
 import productData from '../assets/fake-data/products'
 import category from '../assets/fake-data/category'
 import colors from '../assets/fake-data/product-color'
 import Button from '../components/Button'
 import InfinityList from '../components/InfinityList'
+import apiUrl from "../assets/fake-data/api"
 
 const Search = () => {
-    const { keyword } = useParams();
+    console.log('Reload');
+    let { keyword } = useParams();
+    const api = apiUrl.getAPI(`search`).api + keyword
+   
+
+    let productList = productData.getAllProducts()
+    const filterData = (result)=>{
+        result.forEach((currentValue, index, arr)=>{
+            let code = currentValue.code;
+            let objIndex = arr.findIndex((item)=>{
+                return item.code == code
+            });
+            if (index == objIndex) {
+                currentValue.color = [currentValue.color]
+                currentValue.size = [currentValue.size]
+            } else{
+                if (!(arr[objIndex].color.includes(currentValue.color))) {
+                    arr[objIndex].color = [...arr[objIndex].color,currentValue.color]
+                }
+                if (!(arr[objIndex].size.includes(currentValue.size))) {
+                    arr[objIndex].size = [...arr[objIndex].size,currentValue.size]
+                }
+                currentValue.code = null
+            }
+        })
+        return result.filter(e => e.code !== null)
+    }
+
     const initFilter = {
         category: [],
         color: [],
         price: null
     }
 
-    const productList = productData.getAllProductsByTitle(keyword)
+    const getProduct = async () => {
+        try {
+          const res = await axios.get(api);
+          productList = filterData(res.data)
+          console.log(productList);
+          setProducts(productList)
+        } catch (error) {
+          console.log(error);
+        }
+      };
+    useEffect(() => {
+        getProduct();
+      }, []);
 
     const [products, setProducts] = useState(productList)
 
@@ -178,6 +219,11 @@ const Search = () => {
                     <Button size="sm" onClick={() => showHideFilter()}>bộ lọc</Button>
                 </div>
                 <div className="catalog__content">
+                    <div className='catalog__content_search' >
+                        
+                        Kết quả tìm kiếm cho từ khóa: 
+                        <b >{' ' + keyword}</b>
+                    </div>
                     <InfinityList
                         data={products}
                     />

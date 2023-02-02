@@ -63,7 +63,7 @@ const InfinityList = props => {
                         <ProductCard
                             key={index}
                             image = {item.image}
-                            name={item.title}
+                            name={item.name}
                             price={Number(item.price)}
                             slug={item.code}
                         />

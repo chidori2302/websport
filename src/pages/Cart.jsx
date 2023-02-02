@@ -134,10 +134,6 @@ const Cart = () => {
                             <div className="col-md-6"><label className="credit-card-label">Hạn</label><input type="date" className="form-control credit-inputs" placeholder="12/24" onChange={(e)=>setDateCard(e.target.value)}/></div>
                             <div className="col-md-6 mb-5"><label className="credit-card-label">CVV</label><input type="number" className="form-control credit-inputs" placeholder="342" onChange={(e)=>setCvv(e.target.value)}/></div>
                         </div>
-                        {/* <hr className="line"/>
-                        <div className="d-flex justify-content-between information"><span>Tổng tiền</span><span>450.000 ₫</span></div>
-                        <div className="d-flex justify-content-between information"><span>Phí ship</span><span>50.000 ₫</span></div>
-                        <div className="d-flex justify-content-between information"><span>Thành tiền</span><span>500.000 ₫</span></div> */}
                         <Button size="block" onClick={() => payment()}>
                             Thanh toán qua thẻ
                         </Button>

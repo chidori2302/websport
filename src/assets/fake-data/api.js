@@ -1,4 +1,4 @@
-const url = "http://271b-183-91-2-166.ngrok.io"
+const url = "http://bb5b-59-153-220-241.ngrok.io"
 const apis = [
     {
         title: "login",
@@ -21,11 +21,27 @@ const apis = [
         title: "validate-otp",
         api: `${url}/otp/validate`
     },
+    // Nhận dữ liệu sp
     {
         title: "get-all-products",
         api: `${url}/home/all`
     },
-    // Nhận dữ liệu sp
+    {
+        title: "get-general-products",
+        api: `${url}/home/general/`
+    },
+
+
+
+
+    {
+        title: "change-password",
+        api: `${url}/home/user/password`
+    },
+    {
+        title: "search",
+        api: `${url}/home/search?query=`
+    },
 ]
 
 const getAPI = (title) => apis.find(e => e.title === title)
