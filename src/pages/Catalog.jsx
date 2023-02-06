@@ -5,7 +5,7 @@ import CheckBox from '../components/CheckBox'
 import price from '../assets/fake-data/product-price'
 import axios from 'axios';
 import productData from '../assets/fake-data/products'
-import category from '../assets/fake-data/category'
+import category from '../assets/fake-data/category2'
 import colors from '../assets/fake-data/product-color'
 import Button from '../components/Button'
 import InfinityList from '../components/InfinityList'
@@ -13,9 +13,9 @@ import size from '../assets/fake-data/product-size'
 import apiUrl from "../assets/fake-data/api"
 
 const Catalog =  () => {
+    console.log(category)
     let productList = productData.getAllProducts()
     const api = apiUrl.getAPI(`get-general-products`).api +`trang-phuc`
-    
     const filterData = (result)=>{
         result.forEach((currentValue, index, arr)=>{
             let code = currentValue.code;
@@ -49,7 +49,7 @@ const Catalog =  () => {
         try {
           const res = await axios.get(api);
           productList = filterData(res.data)
-          console.log(productList);
+        //   console.log(productList);
           setProducts(productList)
         } catch (error) {
           console.log(error);
@@ -88,6 +88,7 @@ const Catalog =  () => {
                 case "COLOR":
                     const newColor = filter.color.filter(e => e !== item.color)
                     setFilter({...filter, color: newColor})
+                    console.log(filter.color)
                     break
                 case "SIZE":
                     const newSize = filter.size.filter(e => e !== item.size)
@@ -103,6 +104,72 @@ const Catalog =  () => {
     }
 
     const clearFilter = () => setFilter(initFilter)
+
+    const updateProducts = async () => {
+        var colorFil = ''
+        var sizeFil = ''
+        var priceFil = ''
+        var categoryFil = ''
+
+        if(filter.color!==[]){
+            
+            filter.color.forEach((currentValue, index, arr)=>{
+                if (colorFil == '') {
+                    colorFil = 'color='
+                    colorFil = colorFil+ currentValue
+                } else{
+                    
+                    colorFil = colorFil+',' + currentValue
+                }
+            })
+        }else{
+            colorFil=''
+        }
+        
+        if(filter.size!==[]){
+            filter.size.forEach((currentValue, index, arr)=>{
+                if (sizeFil == '') {
+                    sizeFil = '&size='
+                    sizeFil = sizeFil+ currentValue
+                } else{
+                    
+                    sizeFil = sizeFil+',' + currentValue
+                }
+            })
+        }else{
+            sizeFil=''
+        }
+        if(filter.category!==[]){
+            filter.category.forEach((currentValue, index, arr)=>{
+                if (categoryFil == '') {
+                    categoryFil = '&category='
+                    categoryFil = categoryFil+ currentValue
+                } else{
+                    
+                    categoryFil = categoryFil+',' + currentValue
+                }
+            })
+        }else{
+            categoryFil=''
+        }
+        if(filter.price!==null){
+            priceFil='price='
+            priceFil = priceFil+`${filter.price}`
+        }
+        console.log(`${api}?${colorFil}${colorFil==''?sizeFil:`&${sizeFil}`}${(colorFil=='' && sizeFil=='')?priceFil:`&${priceFil}`}${(colorFil=='' && sizeFil==''&& priceFil=='')?categoryFil:`&${categoryFil}`}`)
+
+            try {
+                const res = await axios.get(`${api}?${colorFil}${colorFil==''?sizeFil:`&${sizeFil}`}${(colorFil=='' && sizeFil=='')?priceFil:`&${priceFil}`}`);
+                productList = filterData(res.data)
+                console.log(productList);
+                setProducts(productList)
+              } catch (error) {
+                console.log(error);
+              }
+    }
+    useEffect(() => {
+        updateProducts()
+    }, [])
 
     const filterRef = useRef(null)
 
@@ -193,7 +260,11 @@ const Catalog =  () => {
 
                     <div className="catalog__filter__widget">
                         <div className="catalog__filter__widget__content">
-                            <Button size="sm" onClick={clearFilter}>xóa bộ lọc</Button>
+                            <Button size="sm" onClick={updateProducts}>lọc sản phẩm</Button>
+                        </div>
+                        <div style={{height: '20px'}}></div>
+                        <div className="catalog__filter__widget__content">
+                            <Button backgroundColor={`pink`} size="sm" onClick={clearFilter}>xóa bộ lọc</Button>
                         </div>
                     </div>
                 </div>

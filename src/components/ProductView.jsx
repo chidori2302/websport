@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
+import { useNavigate} from 'react-router-dom'
 
 // import { withRouter } from 'react-router'
 
@@ -10,20 +11,22 @@ import { remove } from '../redux/product-modal/productModalSlice'
 
 import Button from './Button'
 import numberWithCommas from '../utils/numberWithCommas'
+import apiUrl from "../assets/fake-data/api"
+const ProductView = (props) => {
+    const navigate = useNavigate();
 
-const ProductView = props => {
-
+    const apiAddToCart = apiUrl.getAPI(`add-to-cart`).api
+    const token=localStorage.getItem(`accessToken`)
     const dispatch = useDispatch()
-
     let product = props.product
-    // console.log(product);
+    let list = props.list
     if (product === undefined) product = {
-        title: "",
+        name: "",
         price: '',
-        image: [],
+        image: ['../images/products/product-02 (1).jpg'],
         categoryCode: "",
-        colors: [],
-        slug: "",
+        color: [],
+        code: "",
         size: [],
         description: ""
     }
@@ -37,7 +40,9 @@ const ProductView = props => {
     const [size, setSize] = useState(undefined)
 
     const [number, setNumber] = useState(1)
-
+    const [productBuy, setProductBuy] = useState({quantity:''})
+    
+    
     const updateNumber = (type) => {
         if (type === 'plus') {
             setNumber(number + 1)
@@ -53,7 +58,12 @@ const ProductView = props => {
         setSize(undefined)
     }, [product])
 
+    
+   
+
     const check = () => {
+        
+     
         if (color === undefined) {
             alert('Vui lòng chọn màu sắc!')
             return false
@@ -63,7 +73,8 @@ const ProductView = props => {
             alert('Vui lòng chọn kích cỡ!')
             return false
         }
-        if (number > product.quantity) {
+    
+        if (number > productBuy.quantity) {
             alert('Kho không đủ hàng!')
             return false
         }
@@ -72,36 +83,77 @@ const ProductView = props => {
 
     const addToCart = () => {
         if (check()) {
-            let newItem = {
-                slug: product.slug,
-                color: color,
-                size: size,
-                price: product.price,
-                number: number
-            }
-            if (dispatch(addItem(newItem))) {
-                alert('Success')
-            } else {
-                alert('Fail')
-            }
+            
+            var myHeaders = new Headers();
+            myHeaders.append("Authorization", `Bearer ${token}`);
+            myHeaders.append("Content-Type", "application/json");
+
+            var raw = JSON.stringify({
+            "id": productBuy.id,
+            "price": product.price*number,
+            "quantity": number
+            });
+
+            var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+            };
+
+            fetch(apiAddToCart, requestOptions)
+            .then(response => {
+                console.log(response)
+                if (response.ok) {
+                    return response.json()
+                }
+                throw Error(response.status)
+            })
+            .then(result => {
+                console.log(result)
+                alert(`Thêm sản phẩm thành công`)
+            })
+            .catch(error => {
+                console.log('error', error)
+                alert(`Thêm sản phẩm thất bại`)
+            });
         }
     }
-
     const goToCart = () => {
         if (check()) {
-            let newItem = {
-                slug: product.slug,
-                color: color,
-                size: size,
-                price: product.price,
-                number: number
-            }
-            if (dispatch(addItem(newItem))) {
-                dispatch(remove())
-                props.history.push('/cart')
-            } else {
-                alert('Fail')
-            }
+            var myHeaders = new Headers();
+            myHeaders.append("Authorization", `Bearer ${token}`);
+            myHeaders.append("Content-Type", "application/json");
+
+            var raw = JSON.stringify({
+            "id": product.id,
+            "price": product.price*number,
+            "quantity": number
+            });
+
+            var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+            };
+
+            fetch(apiAddToCart, requestOptions)
+            .then(response => {
+                console.log(response)
+                if (response.ok) {
+                    return response.json()
+                }
+                throw Error(response.status)
+            })
+            .then(result => {
+                console.log(result)
+                navigate(`/cart`)
+            })
+            .catch(error => {
+                console.log('error', error)
+                alert(`Thêm sản phẩm thất bại`)
+            });
         }
     }
 
@@ -134,7 +186,7 @@ const ProductView = props => {
                 </div>
             </div>
             <div className="product__info">
-                <h1 className="product__info__title">{product.title}</h1>
+                <h1 className="product__info__title">{product.name}</h1>
                 <div className="product__info__item">
                     <span className="product__info__item__price">
                         {numberWithCommas(product.price)}
@@ -146,9 +198,19 @@ const ProductView = props => {
                     </div>
                     <div className="product__info__item__list">
                         {
-                            product.colors.map((item, index) => (
-                                <div key={index} className={`product__info__item__list__item ${color === item ? 'active' : ''}`} onClick={() => setColor(item)}>
-                                    <div className={`circle bg-${item}`}></div>
+                            product.color.map((item, index) => (
+                                <div key={index} className={`product__info__item__list__item ${color === item ? 'active' : ''}`} 
+                                    onClick={() => {
+                                        setColor(item)
+                                        setProductBuy(
+                                            list.find(e => {
+                                                return e.size === size && e.size === size
+                                            })
+                                        ) 
+                                        console.log(productBuy)
+                                    }}>
+                                    <div className={`circle`} style={{backgroundColor: item}}></div>
+
                                 </div>
                             ))
                         }
@@ -161,7 +223,17 @@ const ProductView = props => {
                     <div className="product__info__item__list">
                         {
                             product.size.map((item, index) => (
-                                <div key={index} className={`product__info__item__list__item ${size === item ? 'active' : ''}`} onClick={() => setSize(item)}>
+                                <div key={index} className={`product__info__item__list__item ${size === item ? 'active' : ''}`} 
+                                    onClick={() => {
+                                        setSize(item)
+                                        setProductBuy(
+                                            list.find(e => {
+                                                return e.size === size && e.size === size
+                                            })
+                                        ) 
+                                        console.log(productBuy)
+                                    }}
+                                >
                                     <span className="product__info__item__list__item__size">
                                         {item}
                                     </span>
@@ -183,6 +255,20 @@ const ProductView = props => {
                         </div>
                         <div className="product__info__item__quantity__btn" onClick={() => updateNumber('plus')}>
                             <i className="bx bx-plus"></i>
+                        </div>
+                    </div>
+                    <div style={
+                        {
+                            height: '20px'
+                        }
+                    }></div>
+                    <div className="product__info__item__title">
+                        Kho hàng
+                    </div>
+                    <div className="product__info__item__quantity">
+                     
+                        <div className="product__info__item__quantity__input">
+                            {productBuy!==undefined? productBuy.quantity:''}
                         </div>
                     </div>
                 </div>

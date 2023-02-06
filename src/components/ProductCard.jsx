@@ -12,11 +12,11 @@ import Button from './Button'
 import numberWithCommas from '../utils/numberWithCommas'
 
 const ProductCard = props => {
-
+    // console.log(props);
     const dispatch = useDispatch()
     return (
         <div className="product-card">
-            <Link to={`/catalog/${props.slug}`}>
+            <Link to={`/product/${props.name}`}>
                 <div className="product-card__image">
                     <img src={props.image[0]} alt="" />
                     <img src={props.image[1]} alt="" />
@@ -28,17 +28,17 @@ const ProductCard = props => {
                         <del>{numberWithCommas(399000)}</del>
                     </span>
                 </div>
-            </Link>
             <div className="product-card__btn">
                 <Button
                     size="sm"    
                     icon="bx bx-cart"
                     animate={true}
                     onClick={() => dispatch(set(props.slug))}
-                >
+                    >
                     chọn mua
                 </Button>
             </div>
+            </Link>
         </div>
     )
 }

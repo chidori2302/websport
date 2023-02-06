@@ -14,10 +14,10 @@ import InfinityList from '../components/InfinityList'
 import apiUrl from "../assets/fake-data/api"
 
 const Search = () => {
-    console.log('Reload');
+
     let { keyword } = useParams();
     const api = apiUrl.getAPI(`search`).api + keyword
-   
+    console.log(api);
 
     let productList = productData.getAllProducts()
     const filterData = (result)=>{
@@ -48,6 +48,7 @@ const Search = () => {
         price: null
     }
 
+    
     const getProduct = async () => {
         try {
           const res = await axios.get(api);
@@ -59,6 +60,8 @@ const Search = () => {
         }
       };
     useEffect(() => {
+        console.log(keyword);
+        
         getProduct();
       }, []);
 

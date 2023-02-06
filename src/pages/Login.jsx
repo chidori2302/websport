@@ -6,6 +6,11 @@ import apiUrl from "../assets/fake-data/api";
 import axios from 'axios';
 
 const Login = () => {
+    if (localStorage.getItem('accessToken') !== null) {
+        localStorage.removeItem('accessToken')
+        // console.log('accessToken');
+        
+    }
     const navigate = useNavigate();
     const api = apiUrl.getAPI(`login`).api
     console.log(typeof api);
@@ -52,7 +57,7 @@ const Login = () => {
         })
         .catch(error => {
             console.log('error', error)
-            alert(`that bai`)
+            alert(`Đăng nhập thất bại`)
         });
         console.log(email,pass);
     }

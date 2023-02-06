@@ -14,13 +14,16 @@ const mainNav = [
         display: "Dụng cụ & Thiết bị",
         path: "/accessories"
     },
-    {
-        display: "Liên hệ",
-        path: "/contact"
-    }
+    // {
+    //     display: "Liên hệ",
+    //     path: "/contact"
+    // }
 ]
 
 const Header = () => {
+    
+
+
     const [isOpen, setIsOpen] = useState(true);
     const { pathname } = useLocation()
     const activeNav = mainNav.findIndex(e => e.path === pathname)
@@ -49,7 +52,7 @@ const Header = () => {
     const handleKeyPress = (e)=>{
         if (e.which==13) {
             navigate(`/search/${e.target.value}`)
-            console.log(e.target.value);
+            window.location.reload(false);
         }
     }
     const menuLeft = useRef(null)
@@ -89,7 +92,7 @@ const Header = () => {
                     
                     <div className="header__menu__right">
                         <div className="header__menu__item header__menu__right__item search">
-                            <input  type="text"
+                            <input className='search-input'  type="text"
                                 onKeyPress={(e)=>handleKeyPress(e)}
                             />
                             <i className="bx bx-search"></i>

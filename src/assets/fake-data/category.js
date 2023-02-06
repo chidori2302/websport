@@ -1,39 +1,27 @@
 const category = [
     {
-        display: "Chạy bộ",
-        categorySlug: "chay-bo"
-    },
-    {
         display: "Bóng đá",
-        categorySlug: "bong-da"
+        categorySlug: "dung-cu_bong-da"
     },
     {
-        display: "Cầu lông",
-        categorySlug: "cau-long"
+        display: "Tennis",
+        categorySlug: "dung-cu_tennis"
     },
     {
         display: "Bơi lội",
-        categorySlug: "boi-loi"
-    },
-    {
-        display: "Đạp xe",
-        categorySlug: "dap-xe"
-    },
-    {
-        display: "Đối kháng",
-        categorySlug: "doi-khang"
+        categorySlug: "dung-cu_boi-loi"
     },
     {
         display: "Bóng rổ",
-        categorySlug: "bong-ro"
+        categorySlug: "dung-cu_bong-ro"
     },
     {
         display: "Bóng chuyền",
-        categorySlug: "bong-chuyen"
+        categorySlug: "dung-cu_bong-chuyen"
     },
     {
         display: "Bóng bàn",
-        categorySlug: "bong-ban"
+        categorySlug: "dung-cu_bong-ban"
     }
 ]
 

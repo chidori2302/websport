@@ -38,11 +38,11 @@ const product_12_image_02 = require('../images/products/product-12 (2).jpg').def
 const products = [
     
     {
-        title: "Tên sản phẩm",
+        name: "Tên sản phẩm",
         price: 2089000,
-        image: [product_02_image_01,product_02_image_02],
+        image: [product_02_image_01, product_02_image_02],
         categorySlug: "bong-da",
-        colors: ["white", "red", "blue"],
+        color: ["white", "red", "blue"],
         code: "ao-thun-dinosaur-02",
         size: ["s", "m"],
         quantity: 50,

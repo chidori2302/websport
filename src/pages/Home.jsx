@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback, useState, useEffect, useRef }  from 'react'
 import { Link } from 'react-router-dom'
 
 import Helmet from '../components/Helmet'
@@ -11,10 +11,61 @@ import ProductCard from '../components/ProductCard'
 import heroSliderData from '../assets/fake-data/hero-slider'
 import policy from '../assets/fake-data/policy'
 import productData from '../assets/fake-data/products'
+import apiUrl from "../assets/fake-data/api"
+import axios from 'axios';
 
 import banner from '../assets/images/banner.png'
 
 export default function Home () {
+    const apiPopular = apiUrl.getAPI(`get-popular-products`).api
+    const apiBestseller = apiUrl.getAPI(`get-bestseller`).api
+    const filterData = (result)=>{
+        result.forEach((currentValue, index, arr)=>{
+            let code = currentValue.code;
+            let objIndex = arr.findIndex((item)=>{
+                return item.code == code
+            });
+            if (index == objIndex) {
+                currentValue.color = [currentValue.color]
+                currentValue.size = [currentValue.size]
+            } else{
+                if (!(arr[objIndex].color.includes(currentValue.color))) {
+                    arr[objIndex].color = [...arr[objIndex].color,currentValue.color]
+                }
+                if (!(arr[objIndex].size.includes(currentValue.size))) {
+                    arr[objIndex].size = [...arr[objIndex].size,currentValue.size]
+                }
+                currentValue.code = null
+            }
+        })
+        return result.filter(e => e.code !== null)
+    }
+    const [products, setProducts] = useState(productData.getAllProducts)
+    const [products2, setProducts2] = useState(productData.getAllProducts)
+    const getProduct = async () => {
+        try {
+          const res = await axios.get(apiPopular);
+          const result  = filterData(res.data.data)
+          console.log(res);
+          setProducts(result)
+        } catch (error) {
+          console.log(error);
+        }
+      };
+    const getProduct2 = async () => {
+        try {
+          const res2 = await axios.get(apiBestseller);
+          const result2  = filterData(res2.data.data)
+          console.log(res2);
+          setProducts2(result2)
+        } catch (error) {
+          console.log(error);
+        }
+      };
+    useEffect(() => {
+        getProduct();
+        getProduct2();
+      }, []);
     return (
         <Helmet title="Trang chủ">
             {/* hero slider */}
@@ -62,11 +113,11 @@ export default function Home () {
                         gap={20}
                     >
                         {
-                            productData.getProducts(4).map((item, index) => (
+                            products2.map((item, index) => (
                                 <ProductCard
                                     key={index}
                                     image = {item.image}
-                                    name={item.title}
+                                    name={item.name}
                                     price={Number(item.price)}
                                     slug={item.code}
                                 />
@@ -90,11 +141,11 @@ export default function Home () {
                         gap={20}
                     >
                         {
-                            productData.getProducts(8).map((item, index) => (
+                            products.map((item, index) => (
                                 <ProductCard
                                     key={index}
                                     image = {item.image}
-                                    name={item.title}
+                                    name={item.name}
                                     price={Number(item.price)}
                                     slug={item.code}
                                 />
@@ -128,11 +179,11 @@ export default function Home () {
                         gap={20}
                     >
                         {
-                            productData.getProducts(12).map((item, index) => (
+                            products.map((item, index) => (
                                 <ProductCard
                                     key={index}
                                     image = {item.image}
-                                    name={item.title}
+                                    name={item.name}
                                     price={Number(item.price)}
                                     slug={item.code}
                                 />

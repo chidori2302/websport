@@ -27,7 +27,7 @@ const ChangeInfo = (props) => {
         });
 
         var requestOptions = {
-        method: 'PUT',
+        method: 'POST',
         headers: myHeaders,
         body: raw,
         redirect: 'follow'

@@ -12,6 +12,7 @@ import InfinityList from '../components/InfinityList'
 import size from '../assets/fake-data/product-size'
 import apiUrl from "../assets/fake-data/api"
 
+
 const Accessories = () => {
     let productList = productData.getAllProducts()
     const api = apiUrl.getAPI(`get-general-products`).api +`dung-cu`
@@ -105,7 +106,57 @@ const Accessories = () => {
     const clearFilter = () => setFilter(initFilter)
 
     const filterRef = useRef(null)
+    const updateProducts = async () => {
+        var colorFil = ''
+        var priceFil = ''
+        var categoryFil = ''
 
+        if(filter.color!==[]){
+            
+            filter.color.forEach((currentValue, index, arr)=>{
+                if (colorFil == '') {
+                    colorFil = 'color='
+                    colorFil = colorFil+ currentValue
+                } else{
+                    
+                    colorFil = colorFil+',' + currentValue
+                }
+            })
+        }else{
+            colorFil=''
+        }
+        if(filter.categoryFil!==[]){
+            
+            filter.category.forEach((currentValue, index, arr)=>{
+                if (categoryFil == '') {
+                    categoryFil = '&category='
+                    categoryFil = categoryFil+ currentValue
+                } else{
+                    
+                    categoryFil = categoryFil+',' + currentValue
+                }
+            })
+        }else{
+            colorFil=''
+        }
+        if(filter.price!==null){
+            priceFil='price='
+            priceFil = priceFil+`${filter.price}`
+        }
+        console.log(`${api}?${colorFil}${(colorFil=='')?priceFil:`&${priceFil}`}${(colorFil=='' && priceFil=='')?categoryFil:`&${categoryFil}`}`)
+
+            try {
+                const res = await axios.get(`${api}?${colorFil}${(colorFil=='')?priceFil:`&${priceFil}`}${(colorFil=='' && priceFil=='')?categoryFil:`&${categoryFil}`}`);
+                productList = filterData(res.data)
+                console.log(productList);
+                setProducts(productList)
+              } catch (error) {
+                console.log(error);
+              }
+    }
+    useEffect(() => {
+        updateProducts()
+    }, [])
     const showHideFilter = () => filterRef.current.classList.toggle('active')
 
     return (
@@ -133,25 +184,6 @@ const Accessories = () => {
                             }
                         </div>
                     </div>
-                    
-                    {/* <div className="catalog__filter__widget">
-                        <div className="catalog__filter__widget__title">
-                            kích cỡ
-                        </div>
-                        <div className="catalog__filter__widget__content">
-                            {
-                                size.map((item, index) => (
-                                    <div key={index} className="catalog__filter__widget__content__item">
-                                        <CheckBox
-                                            label={item.display}
-                                            onChange={(input) => filterSelect("SIZE", input.checked, item)}
-                                            checked={filter.size.includes(item.size)}
-                                        />
-                                    </div>
-                                ))
-                            }
-                        </div>
-                    </div> */}
 
                     <div className="catalog__filter__widget">
                         <div className="catalog__filter__widget__title">
@@ -193,7 +225,11 @@ const Accessories = () => {
 
                     <div className="catalog__filter__widget">
                         <div className="catalog__filter__widget__content">
-                            <Button size="sm" onClick={clearFilter}>xóa bộ lọc</Button>
+                            <Button size="sm" onClick={updateProducts}>lọc sản phẩm</Button>
+                        </div>
+                        <div style={{height: '20px'}}></div>
+                        <div className="catalog__filter__widget__content">
+                            <Button backgroundColor={`pink`} size="sm" onClick={clearFilter}>xóa bộ lọc</Button>
                         </div>
                     </div>
                 </div>

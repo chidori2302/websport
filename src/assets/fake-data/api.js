@@ -1,4 +1,4 @@
-const url = "http://bb5b-59-153-220-241.ngrok.io"
+const url = "http://4161-59-153-220-241.ngrok.io"
 const apis = [
     {
         title: "login",
@@ -30,6 +30,14 @@ const apis = [
         title: "get-general-products",
         api: `${url}/home/general/`
     },
+    {
+        title: "get-popular-products",
+        api: `${url}/home/popular`
+    },
+    {
+        title: "get-bestseller",
+        api: `${url}/home/bestseller`
+    },
 
 
 
@@ -41,6 +49,30 @@ const apis = [
     {
         title: "search",
         api: `${url}/home/search?query=`
+    },
+    {
+        title: "search",
+        api: `${url}/home/search?query=`
+    },
+    {
+        title: "add-to-cart",
+        api: `${url}/cart`
+    },
+    {
+        title: "get-cart",
+        api: `${url}/cart`
+    },
+    {
+        title: "del-cart",
+        api: `${url}/cart/`
+    },
+    {
+        title: "update-cart",
+        api: `${url}/cart/update/`
+    },
+    {
+        title: "payment",
+        api: `${url}/cart/payment`
     },
 ]
 
