@@ -126,6 +126,9 @@ const Header = () => {
                                     <Link to="/control">
                                         <li className={checkAdmin?"dropdown-item":"dropdown-item d-none"}>Quản lý cửa hàng</li>
                                     </Link>
+                                    <Link to="/bill">
+                                        <li className={checkLogin?"dropdown-item":"dropdown-item d-none"}>Đơn hàng</li>
+                                    </Link>
                                 </ul>
                             )}
                         </div>

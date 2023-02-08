@@ -1,4 +1,4 @@
-const url = "http://4161-59-153-220-241.ngrok.io"
+const url = "http://c3fd-59-153-220-241.ngrok.io"
 const apis = [
     {
         title: "login",
@@ -73,6 +73,10 @@ const apis = [
     {
         title: "payment",
         api: `${url}/cart/payment`
+    },
+    {
+        title: "bill",
+        api: `${url}/cart/bill`
     },
 ]
 

@@ -121,9 +121,7 @@ const CartItem = props => {
             </div>
         </div>
     )
-    return(
-        <div>ok</div>
-    )
+   
 }
 
 CartItem.propTypes = {

@@ -13,6 +13,7 @@ import Search from "../pages/Search";
 import Layout from "../components/Layout";
 import CheckOTP from "../pages/CheckOTP";
 import ChangeInfo from "../pages/ChangeInfo";
+import Bill from "../pages/Bill";
 
 const App = () => {
   return (
@@ -29,6 +30,7 @@ const App = () => {
           <Route path="/search/:keyword" element={<Search />} />
           <Route path="/changeinfo" element={<ChangeInfo />} />
           <Route path="/checkotp/:keyword" element={<CheckOTP />} />
+          <Route path="/bill" element={<Bill />} />
           <Route path="*" element={<NoMatch />} />
         </Route>
       </Routes>

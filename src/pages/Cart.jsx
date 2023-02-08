@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import CheckBox from '../components/CheckBox'
 import { useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Helmet from '../components/Helmet'
 import CartItem from '../components/CartItem'
 import Button from '../components/Button'
@@ -12,6 +12,7 @@ import apiUrl from "../assets/fake-data/api"
 
 const Cart = () => {
     // console.log('re load')
+    const navigate = useNavigate();
     const api = apiUrl.getAPI(`get-cart`).api
     const apiPayment = apiUrl.getAPI(`payment`).api
     const token=localStorage.getItem(`accessToken`)
@@ -37,6 +38,12 @@ const Cart = () => {
         // },
     ]
 
+    const [isShown, setIsShown] = useState(false);
+
+  const handleClick = event => {
+    // 👇️ toggle visibility
+    setIsShown(current => !current);
+  };
     // const [buy, setBuy] = useState([])
     const [typeCard, setTypeCard] = useState(undefined)
 
@@ -47,6 +54,15 @@ const Cart = () => {
     const [dateCard, setDateCard] = useState(undefined)
 
     const [cvv, setCvv] = useState(undefined)
+
+
+    const [address, setAddress] = useState(undefined)
+
+    const [name, setName] = useState(undefined)
+
+    const [email, setEmail] = useState(undefined)
+
+    const [phone, setPhone] = useState(undefined)
 
     // const cartItems = useSelector((state) => state.cartItems.value)
 
@@ -110,32 +126,32 @@ const Cart = () => {
     }, [])
 
     const check = () => {
-        if (typeCard === undefined) {
-            alert('Vui lòng chọn loại thẻ!')
+        // if (typeCard === undefined) {
+        //     alert('Vui lòng chọn loại thẻ!')
+        //     return false
+        // }
+        
+        if (name === undefined) {
+            alert('Vui lòng nhập tên của bạn!')
             return false
         }
-        if (numberCard === undefined) {
-            alert('Vui lòng nhập số thẻ!')
+        if (address === undefined) {
+            alert('Vui lòng nhập địa chỉ nhận hàng!')
             return false
         }
-
-        if (ownCard === undefined) {
-            alert('Vui lòng nhập tên!')
-            return false
-        }
-        if (dateCard === undefined) {
-            alert('Vui lòng nhập hạn thẻ!')
-            return false
-        }
-        if (cvv === undefined) {
-            alert('Vui lòng nhập cvv!')
+        // if (email === undefined) {
+        //     alert('Vui lòng nhập email!')
+        //     return false
+        // }
+        if (phone === undefined) {
+            alert('Vui lòng nhập số điện thoại!')
             return false
         }
         return true
     }
 
     const payment = ()=>{
-        if (true) {
+        if (check()) {
             
             var myHeaders = new Headers();
             myHeaders.append("Authorization", `Bearer ${token}`);
@@ -171,7 +187,7 @@ const Cart = () => {
             })
             .then(result => {
                 console.log(result)
-                window.location.reload(false);
+                navigate(`/bill`)
             })
             .catch(error => {
                 console.log('error', error)
@@ -235,38 +251,58 @@ const Cart = () => {
 
                     <div className="modal-content">
                         <div className="payment-info p-4">
-                        <div className="d-flex justify-content-between align-items-center">
-                            <h4><b>Thanh toán qua thẻ</b></h4>
+                        <div className="d-flex justify-content-between align-items-center mb-3">
+                            <h4><b>Thông tin mua hàng</b></h4>
                         </div>
-                        <span className="type d-block mt-3 mb-1">Loại thẻ</span>
-                        <label className="radio"> <input type="radio" name="card" value="mastercard" checked
-                            onClick={(e)=>setTypeCard(e.target.value)}
-                        /> <span><img width="30" src="https://img.icons8.com/color/48/000000/mastercard.png"/></span> </label>
-                        <label className="radio"> <input type="radio" name="card" value="visa"
-                            onClick={(e)=>setTypeCard(e.target.value)}
-                        /> <span><img width="30" src="https://img.icons8.com/officel/48/000000/visa.png"/></span> </label>
-                        
-                        <label className="radio"> <input type="radio" name="card" value="paypal"
-                            onClick={(e)=>setTypeCard(e.target.value)}
-                        /> <span><img width="30" src="https://img.icons8.com/officel/48/000000/paypal.png"/></span> </label>
                         <div className="mb-3">
-                            <label className="credit-card-label">Tên chủ thẻ</label>
-                            <input type="text" className="form-control credit-inputs" placeholder="Name"
-                                onChange={(e)=>setOwnCard(e.target.value)}
+                            <label className="credit-card-label">Họ và tên</label>
+                            <input type="text" className="form-control credit-inputs" placeholder="Nguyễn Văn A"
+                                onChange={(e)=>setName(e.target.value)}
                             />
                         </div>
                         <div className="mb-3">
-                            <label className="credit-card-label">Số thẻ</label>
-                            <input type="number" className="form-control credit-inputs" placeholder="0000 0000 0000 0000" onChange={(e)=>setNumberCard(e.target.value)}/>
+                            <label className="credit-card-label">Địa chỉ nhận hàng</label>
+                            <input type="text" className="form-control credit-inputs" placeholder="Cụm 5, Ích Vịnh,..." onChange={(e)=>setAddress(e.target.value)}/>
                         </div>
                         <div className="row">
-                            <div className="col-md-6"><label className="credit-card-label">Hạn</label><input type="date" className="form-control credit-inputs" placeholder="12/24" onChange={(e)=>setDateCard(e.target.value)}/></div>
-                            <div className="col-md-6 mb-5"><label className="credit-card-label">CVV</label><input type="number" className="form-control credit-inputs" placeholder="342" onChange={(e)=>setCvv(e.target.value)}/></div>
+                            <div className="col-md-6"><label className="credit-card-label">Email</label><input type="email" className="form-control credit-inputs" placeholder="abc@gmail.com" onChange={(e)=>setEmail(e.target.value)}/></div>
+                            <div className="col-md-6 mb-5"><label className="credit-card-label">Số điện thoại</label><input type="number" className="form-control credit-inputs" placeholder="092655..." onChange={(e)=>setPhone(e.target.value)}/></div>
                         </div>
-                        <Button size="block" onClick={() => payment()}>
+
+                        <div className="credit-card" style={{display: isShown ? 'block' : 'none'}}>
+                            <div className="d-flex justify-content-between align-items-center mb-3">
+                                <h4><b>Thông tin thẻ</b></h4>
+                            </div>
+                            <span className="type d-block mt-3 mb-1">Loại thẻ</span>
+                            <label className="radio"> <input type="radio" name="card" value="mastercard" checked
+                                onClick={(e)=>setTypeCard(e.target.value)}
+                            /> <span><img width="30" src="https://img.icons8.com/color/48/000000/mastercard.png"/></span> </label>
+                            <label className="radio"> <input type="radio" name="card" value="visa"
+                                onClick={(e)=>setTypeCard(e.target.value)}
+                            /> <span><img width="30" src="https://img.icons8.com/officel/48/000000/visa.png"/></span> </label>
+                            
+                            <label className="radio"> <input type="radio" name="card" value="paypal"
+                                onClick={(e)=>setTypeCard(e.target.value)}
+                            /> <span><img width="30" src="https://img.icons8.com/officel/48/000000/paypal.png"/></span> </label>
+                            <div className="mb-3">
+                                <label className="credit-card-label">Tên chủ thẻ</label>
+                                <input type="text" className="form-control credit-inputs" placeholder="Name"
+                                    onChange={(e)=>setOwnCard(e.target.value)}
+                                />
+                            </div>
+                            <div className="mb-3">
+                                <label className="credit-card-label">Số thẻ</label>
+                                <input type="number" className="form-control credit-inputs" placeholder="0000 0000 0000 0000" onChange={(e)=>setNumberCard(e.target.value)}/>
+                            </div>
+                            <div className="row">
+                                <div className="col-md-6"><label className="credit-card-label">Hạn</label><input type="date" className="form-control credit-inputs" placeholder="12/24" onChange={(e)=>setDateCard(e.target.value)}/></div>
+                                <div className="col-md-6 mb-5"><label className="credit-card-label">CVV</label><input type="number" className="form-control credit-inputs" placeholder="342" onChange={(e)=>setCvv(e.target.value)}/></div>
+                            </div>
+                        </div>
+                        <Button size="block" onClick={() => isShown ? payment() : handleClick() }>
                             Thanh toán qua thẻ
                         </Button>
-                        <Button size="block" backgroundColor="orange" onclick={payment}>
+                        <Button size="block" backgroundColor="orange" onClick={() => payment()}>
                             Thanh toán khi nhận hàng
                         </Button>
                         </div>

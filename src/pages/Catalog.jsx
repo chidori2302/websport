@@ -15,7 +15,8 @@ import apiUrl from "../assets/fake-data/api"
 const Catalog =  () => {
     console.log(category)
     let productList = productData.getAllProducts()
-    const api = apiUrl.getAPI(`get-general-products`).api +`trang-phuc`
+    // const api = apiUrl.getAPI(`get-general-products`).api +`trang-phuc`
+    const api = `http://c3fd-59-153-220-241.ngrok.io/home/general/trang-phuc`
     const filterData = (result)=>{
         result.forEach((currentValue, index, arr)=>{
             let code = currentValue.code;
