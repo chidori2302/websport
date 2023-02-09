@@ -13,10 +13,9 @@ import size from '../assets/fake-data/product-size'
 import apiUrl from "../assets/fake-data/api"
 
 const Catalog =  () => {
-    console.log(category)
     let productList = productData.getAllProducts()
-    // const api = apiUrl.getAPI(`get-general-products`).api +`trang-phuc`
-    const api = `http://c3fd-59-153-220-241.ngrok.io/home/general/trang-phuc`
+    const api = apiUrl.getAPI(`get-general-products`).api +`trang-phuc`
+    var apiCLone = api + '?'
     const filterData = (result)=>{
         result.forEach((currentValue, index, arr)=>{
             let code = currentValue.code;
@@ -89,7 +88,6 @@ const Catalog =  () => {
                 case "COLOR":
                     const newColor = filter.color.filter(e => e !== item.color)
                     setFilter({...filter, color: newColor})
-                    console.log(filter.color)
                     break
                 case "SIZE":
                     const newSize = filter.size.filter(e => e !== item.size)
@@ -111,9 +109,8 @@ const Catalog =  () => {
         var sizeFil = ''
         var priceFil = ''
         var categoryFil = ''
-
-        if(filter.color!==[]){
-            
+        let apiFil = apiCLone
+        if(filter.color!==[]){          
             filter.color.forEach((currentValue, index, arr)=>{
                 if (colorFil == '') {
                     colorFil = 'color='
@@ -123,44 +120,56 @@ const Catalog =  () => {
                     colorFil = colorFil+',' + currentValue
                 }
             })
-        }else{
-            colorFil=''
         }
         
         if(filter.size!==[]){
             filter.size.forEach((currentValue, index, arr)=>{
                 if (sizeFil == '') {
-                    sizeFil = '&size='
+                    sizeFil = 'size='
                     sizeFil = sizeFil+ currentValue
                 } else{
                     
                     sizeFil = sizeFil+',' + currentValue
                 }
             })
-        }else{
-            sizeFil=''
         }
+        
         if(filter.category!==[]){
             filter.category.forEach((currentValue, index, arr)=>{
                 if (categoryFil == '') {
-                    categoryFil = '&category='
+                    categoryFil = 'cate='
                     categoryFil = categoryFil+ currentValue
                 } else{
                     
                     categoryFil = categoryFil+',' + currentValue
                 }
             })
-        }else{
-            categoryFil=''
         }
+        
         if(filter.price!==null){
             priceFil='price='
             priceFil = priceFil+`${filter.price}`
         }
-        console.log(`${api}?${colorFil}${colorFil==''?sizeFil:`&${sizeFil}`}${(colorFil=='' && sizeFil=='')?priceFil:`&${priceFil}`}${(colorFil=='' && sizeFil==''&& priceFil=='')?categoryFil:`&${categoryFil}`}`)
+
+        if (categoryFil !== '') {
+            apiFil = apiFil + categoryFil + `&`
+        }
+        if (colorFil !== '') {
+            apiFil = apiFil + colorFil + `&`
+        }
+        if (sizeFil !== '') {
+            apiFil = apiFil + sizeFil + `&`
+        }
+        if (priceFil !== '') {
+            apiFil = apiFil + priceFil + `&`
+        }
+
+        
+        // console.log(colorFil, sizeFil, priceFil, categoryFil)
+        console.log(`${apiFil}`)
 
             try {
-                const res = await axios.get(`${api}?${colorFil}${colorFil==''?sizeFil:`&${sizeFil}`}${(colorFil=='' && sizeFil=='')?priceFil:`&${priceFil}`}`);
+                const res = await axios.get(apiFil);
                 productList = filterData(res.data)
                 console.log(productList);
                 setProducts(productList)
@@ -175,7 +184,7 @@ const Catalog =  () => {
     const filterRef = useRef(null)
 
     const showHideFilter = () => filterRef.current.classList.toggle('active')
-
+    
     return (
         <Helmet title="Sản phẩm">
             <div className="catalog">

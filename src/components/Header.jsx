@@ -121,7 +121,7 @@ const Header = () => {
                                         <li className={checkLogin?"dropdown-item":"dropdown-item d-none"}>Đổi mật khẩu</li>
                                     </Link>
                                     <Link to="/login">
-                                        <li className="dropdown-item" onClick={handleLogout}>Đăng xuất</li>
+                                        <li className={checkLogin?"dropdown-item ":"dropdown-item d-none"} onClick={handleLogout}>Đăng xuất</li>
                                     </Link>
                                     <Link to="/control">
                                         <li className={checkAdmin?"dropdown-item":"dropdown-item d-none"}>Quản lý cửa hàng</li>

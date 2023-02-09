@@ -8,6 +8,10 @@ const colors = [
         color: "pink"
     },
     {
+        display: "Đỏ",
+        color: "red"
+    },
+    {
         display: "Đen",
         color: "black"
     },

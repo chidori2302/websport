@@ -9,13 +9,14 @@ import category from '../assets/fake-data/category'
 import colors from '../assets/fake-data/product-color'
 import Button from '../components/Button'
 import InfinityList from '../components/InfinityList'
-import size from '../assets/fake-data/product-size'
+import size2 from '../assets/fake-data/product-size2'
 import apiUrl from "../assets/fake-data/api"
 
 
 const Accessories = () => {
     let productList = productData.getAllProducts()
     const api = apiUrl.getAPI(`get-general-products`).api +`dung-cu`
+    var apiCLone = api + '?'
     
     const filterData = (result)=>{
         result.forEach((currentValue, index, arr)=>{
@@ -108,11 +109,11 @@ const Accessories = () => {
     const filterRef = useRef(null)
     const updateProducts = async () => {
         var colorFil = ''
+        var sizeFil = ''
         var priceFil = ''
         var categoryFil = ''
-
-        if(filter.color!==[]){
-            
+        let apiFil = apiCLone
+        if(filter.color!==[]){          
             filter.color.forEach((currentValue, index, arr)=>{
                 if (colorFil == '') {
                     colorFil = 'color='
@@ -122,38 +123,65 @@ const Accessories = () => {
                     colorFil = colorFil+',' + currentValue
                 }
             })
-        }else{
-            colorFil=''
         }
-        if(filter.categoryFil!==[]){
-            
+        
+        if(filter.size!==[]){
+            filter.size.forEach((currentValue, index, arr)=>{
+                if (sizeFil == '') {
+                    sizeFil = 'size='
+                    sizeFil = sizeFil+ currentValue
+                } else{
+                    
+                    sizeFil = sizeFil+',' + currentValue
+                }
+            })
+        }
+        
+        if(filter.category!==[]){
             filter.category.forEach((currentValue, index, arr)=>{
                 if (categoryFil == '') {
-                    categoryFil = '&category='
+                    categoryFil = 'cate='
                     categoryFil = categoryFil+ currentValue
                 } else{
                     
                     categoryFil = categoryFil+',' + currentValue
                 }
             })
-        }else{
-            colorFil=''
         }
+        
         if(filter.price!==null){
             priceFil='price='
             priceFil = priceFil+`${filter.price}`
         }
-        console.log(`${api}?${colorFil}${(colorFil=='')?priceFil:`&${priceFil}`}${(colorFil=='' && priceFil=='')?categoryFil:`&${categoryFil}`}`)
+
+        if (categoryFil !== '') {
+            apiFil = apiFil + categoryFil + `&`
+        }
+        if (colorFil !== '') {
+            apiFil = apiFil + colorFil + `&`
+        }
+        if (sizeFil !== '') {
+            apiFil = apiFil + sizeFil + `&`
+        }
+        if (priceFil !== '') {
+            apiFil = apiFil + priceFil + `&`
+        }
+
+        
+        // console.log(colorFil, sizeFil, priceFil, categoryFil)
+        console.log(`${apiFil}`)
 
             try {
-                const res = await axios.get(`${api}?${colorFil}${(colorFil=='')?priceFil:`&${priceFil}`}${(colorFil=='' && priceFil=='')?categoryFil:`&${categoryFil}`}`);
+                const res = await axios.get(apiFil);
                 productList = filterData(res.data)
                 console.log(productList);
                 setProducts(productList)
               } catch (error) {
                 console.log(error);
               }
+
     }
+    console.log(filter.size)
     useEffect(() => {
         updateProducts()
     }, [])
@@ -178,6 +206,25 @@ const Accessories = () => {
                                             label={item.display}
                                             onChange={(input) => filterSelect("CATEGORY", input.checked, item)}
                                             checked={filter.category.includes(item.categorySlug)}
+                                        />
+                                    </div>
+                                ))
+                            }
+                        </div>
+                    </div>
+
+                    <div className="catalog__filter__widget">
+                        <div className="catalog__filter__widget__title">
+                            kích cỡ
+                        </div>
+                        <div className="catalog__filter__widget__content">
+                            {
+                                size2.map((item, index) => (
+                                    <div key={index} className="catalog__filter__widget__content__item">
+                                        <CheckBox
+                                            label={item.display}
+                                            onChange={(input) => filterSelect("SIZE", input.checked, item)}
+                                            checked={filter.size.includes(item.size)}
                                         />
                                     </div>
                                 ))

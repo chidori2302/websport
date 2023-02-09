@@ -34,7 +34,7 @@ const Cart = () => {
         //     },
         //     username: ``,
         //     quantity: '',
-        //     price: ''
+        //     price: 0
         // },
     ]
 
@@ -67,8 +67,12 @@ const Cart = () => {
     // const cartItems = useSelector((state) => state.cartItems.value)
 
     const [cartProducts, setCartProducts] = useState(listCart)
-    const [totalPrice, setTotalPrice] = useState(0)
-    
+    let [totalPrice, setTotalPrice] = useState(0)
+    if (totalPrice == 0) {
+        cartProducts.forEach((curentItem, index, arr) =>{
+            totalPrice = totalPrice + curentItem.price
+        })
+    }
 
     const initFilter = []
     const [filter, setFilter] = useState(initFilter)

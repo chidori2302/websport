@@ -1,4 +1,4 @@
-const url = "http://c3fd-59-153-220-241.ngrok.io"
+const url = "http://442d-42-113-208-201.ngrok.io"
 const apis = [
     {
         title: "login",
@@ -45,10 +45,6 @@ const apis = [
     {
         title: "change-password",
         api: `${url}/home/user/password`
-    },
-    {
-        title: "search",
-        api: `${url}/home/search?query=`
     },
     {
         title: "search",

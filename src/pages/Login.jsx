@@ -20,6 +20,7 @@ const Login = () => {
         var myHeaders = new Headers();
         // myHeaders.append("token", "acss");
         myHeaders.append("Content-Type", "application/json");
+        myHeaders.append("Access-Control-Allow-Origin", "origin-list");
         
         var raw = JSON.stringify({
             "username": email,
@@ -30,17 +31,11 @@ const Login = () => {
             method: 'POST',
             headers: myHeaders,
             body: raw,
-            mode: 'cors',
+            // mode: 'cors',
             redirect: 'follow'
           };
         
         fetch(api, requestOptions)
-        // axios
-        // .post(api, formData, {
-        //     headers: {
-        //     "Content-Type": "multipart/form-data",
-        //     },
-        // })
         .then(response => {
             console.log(response)
             if (response.ok) {
